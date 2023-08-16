@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>tobytone-soundsystems</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <style>
+
+        .pink-button{
+            background-color: rgb(214, 145, 155);
+            color: black;
+            border-color: rgb(214, 145, 155);
+        }
+
+        .text-black{
+            color: black;
+        }
+
+        .black-badge{
+        
+            color: black;
+        }
+
+        body{background-color: #eee}.card{border:none;position: relative}.off{font-size: 30px;margin-top: -1px !important;color: blue}.flat{font-size: 20px}.star{margin-top: 5px !important;font-size: 28px}.line{padding-right: 3rem!important;padding-left: 8rem!important}.line hr{height: 2px}
+      
+        #brandheading{
+            background-color: black;
+        }
+        #brandfont{
+            color: white;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- Topbar Start -->
+   
+        <div class="row align-items-center py-3 px-xl-5" id="brandheading">
+            <div class="col-lg-3 d-none d-lg-block" >
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold" id="brandfont">tObytOne</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+                
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+                <button class="btn border pink-button" id="getcartbtn">
+                    <a href="" class="btn-link">
+                        <i class="fas fa-heart text-black"></i>
+                        <span class="badge black-badge">Wishlist</span>
+                    </a>
+                </button>
+               
+                <button class="btn border pink-button" id="getcartbtn" onclick="location.href='/getcart'">
+                    <a href="/getcart" class="btn-link">
+                        <i class="fas fa-shopping-cart  text-black"></i>
+                        <span class="badge black-badge">My Cart</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-5" >
+        <div class="row border-top px-xl-5" >
+            <div class="col-lg-3 d-none d-lg-block" >
+                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: 0px;"  >
+                    <h6 class="m-0">Categories</h6>
+                    <i class="fa fa-angle-down text-dark"></i>
+                </a>
+                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0  border-top-0 border-bottom-0" id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: 500px">
+                       
+                        <a href="" class="nav-item nav-link" style="color: black;">True wireless earbuds</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Neckbands</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Wireless headphones</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Wireless speakers</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Wired headphones</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Wired earphones</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Soundbars</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Party speakers</a>
+                        <a href="" class="nav-item nav-link" style="color: black;">Gaming headphones</a>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse"  ; margin-bottom: 0;">
+                        <div class="navbar-nav mr-auto py-0" >
+                            <a href="/" class="nav-item nav-link active" style="color: black;"> <b>Home</b></a>
+                            <a href="/allproducts" class="nav-item nav-link" style="color: black;"> <b>All Products</b></a>
+                            
+                           
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+                            <% if (user) { %>
+                                    <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+                                        <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                          <span class="font-weight-normal"><%=user.name%></span></a>
+                                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                                          <a href="/userhome/<%=user.id%>" class=""><i class="dropdown-item-icon icon-user text-primary"></i> My Profile
+                                        </a>
+                                          <a href="/getorders" class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i>Orders</a>
+                                          <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i>Wishlist</a>
+                                          <a href="/getcart" class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i>Cart</a>
+                                          <a href="/manageaddress" class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i>Address</a>
+                                          <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i>Coupons</a>
+                                          <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Gift Cards</a>
+                                          <a href="/logout" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                                        </div>
+                                      </li>
+                            <% } else { %>
+
+                                <form action="/login" method="get">
+                                    <button type="submit">LOGIN</button>
+                                </form>
+                            
+                            <% } %>
+                        </div>
+                    </div>
+                </nav>
+                <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <% banners.forEach((banner,index)=>{%>
+                        <div class="carousel-item <%=index === 0? 'active' : ' ' %>" style="height: 410px;">
+                            <img class="img-fluid" src="/uploads/<%=banner.image%>" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">CRAFTING SONIC WONDERS</h3>
+                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                   <% })%>
+                    </div>
+                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid pt-5" >
+        <div class="text-center mb-4">
+           
+            <h2 class="m-0 display-5 font-weight-semi-bold" id="brandfont"><span class="px-2">SHOP BY CATEGORY</span></h2>
+            
+        </div>
+        <div class="row px-xl-5 pb-3">
+            <% categories.forEach(function(category){ %>
+              <div class="col-lg-3 col-md-6 col-sm-12 pb-1" >
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="uploads/<%=category.image %>" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3"><%=category.title %></h6>
+                       
+                    </div>
+                    
+                </div>
+            </div>
+              <% }); %>
+            
+            
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Featured Start -->
+   
+    <!-- Featured End -->
+
+
+    <!-- Categories Start -->
+    
+    <!-- Categories End -->
+
+
+    <!-- Offer Start -->
+   
+    <!-- Offer End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5" >
+        <div class="text-center mb-4">
+            <h2 class="m-0 display-5 font-weight-semi-bold" id="brandfont"><span class="px-2">DAILY DEALS</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            <% products.forEach(function(product) { %>
+              <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="uploads/<%=product.image[0] %>" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3"><%=product.title %></h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$123.00</h6><h6 class="text-muted ml-2"><del><%=product.cost %><</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="/productdetails/<%=product._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/addtocart/<%=product._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+              <% }); %>
+            
+            
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+    <!-- Subscribe Start -->
+    <div class="container-fluid bg-secondary my-5">
+        <div class="row justify-content-md-center py-5 px-xl-5">
+            <div class="col-md-6 col-12 py-5">
+                <div class="text-center mb-2 pb-2">
+                    <h2 class="m-0 display-5 font-weight-semi-bold" id="brandfont"></h2><span class="bg-secondary px-2">Stay Updated</span></h2>
+                    <p>subscribe for our email alerts.</p>
+                </div>
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-4">Subscribe</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Subscribe End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2">New Launches</span></h2>
+        </div>
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/chord.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Aavante Bar Chord</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$950.00</h6><h6 class="text-muted ml-2"><del>$1500.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/getcart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/stark.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Aavante Bar Stark</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$500.00</h6><h6 class="text-muted ml-2"><del>$1000.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/addtocart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/theme.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Aavante Bar Theme</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$10000.00</h6><h6 class="text-muted ml-2"><del>$20000.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/getcart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/bo.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Rockerz Enticer</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$10000.00</h6><h6 class="text-muted ml-2"><del>$15000.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/getcart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/fuel.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Airdopes Fuel</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$1000.00</h6><h6 class="text-muted ml-2"><del>$5000.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/getcart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/av.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Aavante Bar 590</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$3000.00</h6><h6 class="text-muted ml-2"><del>$6000.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/getcart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/k.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Aavante Bar 1550 pro</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$7000.00</h6><h6 class="text-muted ml-2"><del>$12000.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/getcart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="card product-item border-0 mb-4">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid w-100" src="/img/2.webp" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">Aavante Bar 3200 D</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>$4000.00</h6><h6 class="text-muted ml-2"><del>$8000.00</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <a href="/getcart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+    <!-- Vendor Start -->
+    
+    <!-- Vendor End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5" id="foot">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a href="" class="text-decoration-none">
+                    <h1 class="mb-4 display-5 font-weight-semi-bold">tObytOne</h1>
+                </a>
+                <p>CRAFTING SONIC WONDERS</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@tobytone.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>8714593851</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">shop</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>True wireless earbuds</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>wired headphones</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>home audio</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>gaming headphones</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>misfit</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>earn 100</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">help</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Track your order</a>
+                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>warranty and support</a>
+                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>return policy</a>
+                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>service centeres</a>
+                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>bulk orders</a>
+                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>FAQs</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                    required="required" />
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

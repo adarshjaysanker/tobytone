@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login 08</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="/usersignin/css/style.css">
+
+  <style>
+		.form-group .submit {
+             position: absolute;
+             top: 48px;
+             left: 0;
+             right: 0;
+             margin: 0 auto;
+           }
+		.heading-section {
+			 padding-left: 132px;
+		   }
+
+	
+        
+
+    .ftco-section {
+        padding: 100px 0;
+    }
+
+    .login-wrap {
+        background-color: black;
+        border-radius: 10px;
+		transition: transform 0.3s ease, z-index 0.3s ;
+        padding: 40px;
+    }
+
+	.login-wrap:hover{
+		transform: scale(1.05);
+		z-index: 1;
+	}
+	
+
+    .heading-section {
+        color: white;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 40px;
+		padding-right: 125px;
+    }
+
+	body{
+		background:linear-gradient(to right, black, rgb(82, 80, 80)) ;
+	}
+
+    .icon {
+        background-color: #4caf50;
+        color: #fff;
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-bottom: 30px;
+    }
+
+    .icon .fa {
+        font-size: 40px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 25px;
+        padding: 15px;
+        color: #333;
+        background-color: #f8f8f8;
+        border: none;
+    }
+
+    .form-control::placeholder {
+        color: #999;
+    }
+
+    .btn-primary {
+        background-color: #4caf50;
+        border-radius: 25px;
+        color: #fff;
+        cursor: pointer;
+        padding: 15px;
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        color: black;
+    }
+
+	#brandheading{
+        background-color: black;
+    }
+
+	#brandfont{
+        color: white;
+    }
+
+    .error {
+        font-size: 14px;
+        color: red;
+    }
+</style>
+
+
+	</head>
+	<body>
+    <div class="row align-items-center py-3 px-xl-5" id="brandheading">
+			<div class="col-lg-3 d-none d-lg-block" >
+				<a href="" class="text-decoration-none">
+					<h1 class="m-0 display-5 font-weight-semi-bold" id="brandfont">tObytOne</h1>
+				</a>
+			</div>
+		</div>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-5">
+					<div class="login-wrap p-4 p-md-5">
+		      	<div class="p-3">
+		      	<span>Enter your 6-digit OTP number</span>
+		      	</div>
+		      
+						<form  name="signup" class="login-form" id="otpNumberForm" method="post">
+
+					 
+					  <div class="form-group d-flex">
+						  <input type="text"  name="otp" class="form-control rounded-left" placeholder="Enter your 6 digit number" required>
+						</div>
+					
+					
+	           <span id="otpError" style="color: red;"></span>
+	            <div class="form-group d-md-flex">
+	            	
+							
+	            </div>
+	            <div class="form-group">
+	            	<button type="submit" class="btn btn-primary rounded submit p-3 px-5">Verify</button>
+	            </div>
+	          </form>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</section>
+    <script>
+        const form=document.getElementById('otpNumberForm')
+       const otpError=document.getElementById('otpError')
+       
+        form.addEventListener('submit',async(event)=>{
+             event.preventDefault();
+             //resset errors
+      
+            // emailError.textContent='';
+      
+            //get values
+            const otpNumber=form.otp.value;
+           
+         
+      
+            try{
+                   const res = await fetch('/verify-signup-otp', {
+                   method: 'post',
+                   body: JSON.stringify({ otpNumber }),
+                   headers: { 'Content-Type': 'application/json' },
+                     });
+      
+      const data = await res.json();
+      console.log("++++++++++++____")
+      console.log(data)
+      
+      
+      if(data.invalid){
+        otpError.innerHTML='Invalid OTP. Please enter the correct OTP'
+      
+      }
+      if(data.user){
+        location.assign('/')
+      }
+      
+              
+            }catch(err){
+                console.log(err);
+      
+            }
+      
+      
+        });
+      </script>
+              
+	
+
+
+	<script src="usersignin/js/jquery.min.js"></script>
+  <script src="usersignin/js/popper.js"></script>
+  <script src="usersignin/js/bootstrap.min.js"></script>
+  <script src="usersignin/js/main.js"></script>
+
+	</body>
+</html>

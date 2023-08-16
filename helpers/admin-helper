@@ -1,0 +1,35 @@
+
+const mongoose = require('mongoose');
+const User=require('../model/users')
+
+
+module.exports={
+    blockStatusUpdate: (userId)=>{
+        return new Promise(async (resolve,reject)=>{
+           console.log('helloo')
+          const user=await User.findById(userId)
+  
+          let status=user.isActive
+         if(status){
+          User.updateOne({_id:userId},
+           {$set:{
+           isActive:false
+          }}).then(response=>{
+           resolve({active:false})
+           console.log("changed");
+          })
+  
+         }else{
+           User.updateOne({_id:userId},
+              {$set:{
+              isActive:true
+             }}).then(response=>{
+              resolve({active:true})
+             })
+  
+         }
+        })
+  
+         
+      }
+}

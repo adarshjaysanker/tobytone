@@ -1,0 +1,539 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-backend/page-orders-1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:33:21 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Evara Dashboard</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/adminassets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="/adminassets/css/main.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+   
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
+
+    <style>
+        /* Custom CSS styles for the table */
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+      
+        th, td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+      
+        th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
+      
+        .product-names {
+          white-space: nowrap;
+        }
+
+        .main-header{
+            background: linear-gradient(to right, #73c8a9, black);
+        }
+
+        .aside-top{
+            background-color: black;
+        }
+
+        .navbar-aside{
+            background: linear-gradient(to right, #73c8a9, black);
+        }
+
+        .brand-wrap h3{
+            color: white;
+        }
+
+        .content-title.card-title{
+            color: black;
+        }
+
+        #dashboardtext{
+            color: black;
+            
+        }
+
+        .text{
+            color: black;
+            font-weight: bolder;
+        }
+
+        #menu-item-card{
+            background-color: mediumseagreen;
+        }
+
+        .btn.btn-primary{
+            background-color: black;
+        }
+
+        .card.card-body.mb-4{
+            background-color: mediumseagreen;
+        }
+
+        .card.mb-4{
+            background-color: mediumseagreen;
+        }
+
+        .card-header{
+            background-color: black;
+        }
+
+        footer {
+            background: linear-gradient(to right, #73c8a9, black);
+            margin: 0;
+            padding: 0;
+        }
+
+        footer.main-footer {
+             bottom: -49px;
+             padding: 26px 3%;
+             position: absolute;
+             right: 0;
+             width: 100%;
+             height: 84px;
+        }
+
+        .card-title {
+            margin-bottom: 3rem;
+        }
+
+        .radio-box input[type="radio"]{
+            display: none;
+        }
+
+        .radio-box label{
+            display: inline-block;
+            padding: 8px 20px;
+            margin: 5px;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+        }
+
+        .radio-box input[type="radio"]:checked+label{
+            background-color: #73c8a9;
+            color: white;
+            border-color: #73c8a9;
+        }
+
+
+        .sales-report-table-container{
+            overflow-x: auto;
+        }
+
+        .sales-report-table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sales-report-table th,
+        .sales-report-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sales-report-table th{
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .sales-report-table tbody tr :hover{
+            background-color: #f2f2f2;
+        }
+
+        .sales-report-table td :nth-child(3),
+        .sales-report-table td :nth-child(4){
+            text-align: center;
+        }
+
+        .sales-report-table tfoot{
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .sales-report-table tfoot td{
+            padding : 8px;
+            text-align: left;
+            border-top: 1px solid #ddd;
+        }
+
+       #totalOrder{
+        color: black;
+        font-size: larger;
+       }
+
+       #totalRevenue{
+        color: black;
+        font-size: larger;
+       }
+
+       .date-picker-container{
+        display : flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+       }
+
+       .date-picker-container label{
+        font-weight: bold;
+       }
+
+       .date-picker-container input[type="date"]{
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+       }
+
+       #filter-button{
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+       }
+
+       #filter-button :hover{
+        background-color: #0056b3;
+       }
+
+
+      </style>
+      
+</head>
+
+<body>
+    <div class="screen-overlay"></div>
+    <aside class="navbar-aside" id="offcanvas_aside">
+        <div class="aside-top">
+            <a href="/admin/dashboard" class="brand-wrap"> <h3>TOBYTONE</h3> </a>
+            <div>
+                <button class="btn btn-icon btn-aside-minimize"> <i class="text-muted material-icons md-menu_open"></i> </button>
+            </div>
+        </div>
+        <nav>
+            <ul class="menu-aside">
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" href="/admin/dashboard"> <i class="icon material-icons md-home"></i>
+                        <span class="text"> <h4>Dashboard</h4></span>
+                    </a>
+                </li>
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" href="/admin/allproducts"> <i class="icon material-icons md-shopping_bag"></i>
+                        <span class="text"> <h4>Products</h4></span>
+                    </a>
+                </li>
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" href="/admin/orderlist"> <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text"> <h4>Orders</h4></span>
+                    </a>
+                    
+                </li>
+               
+                    
+               
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" href="page-transactions-1.html"> <i class="icon material-icons md-monetization_on"></i>
+                        <span class="text"> <h4> Transactions </h4></span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" href="/admin/userlist"> <i class="icon material-icons md-person"></i>
+                        <span class="text"> <h4>Users</h4></span>
+                    </a>
+                   
+                </li>
+
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" href="/admin/banner-page"> <i class="icon material-icons md-store"></i>
+                        <span class="text"> <h4> Banner management </h4></span>
+                    </a>
+                   
+                </li>
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" href="/admin/coupon">  <i class="icon material-icons md-local_offer"></i></i>
+                        <span class="text"> <h4> Coupon Management </h4></span>
+                    </a>
+                   
+                </li>
+                
+               
+                <li class="menu-item" id="menu-item-card">
+                    <a class="menu-link" disabled href="/admin/sales-report"> <i class="icon material-icons md-pie_chart"></i>
+                        <span class="text"> <h4>Sales Report</h4></span>
+                    </a>
+                </li>               
+     
+                
+            </ul>
+            <hr>
+            
+            <br>
+            <br>
+        </nav>
+    </aside>
+    <main class="main-wrap">
+        <header class="main-header navbar">
+            <div class="col-search">
+                <div>
+                    <h2 class="content-title card-title">Sales Report</h2>
+                   <button id="downloadButton" class="btn btn-primary">Download Sales Report</button>
+                </div>
+            </div>
+              </header>
+              <div class="totals-container">
+                <p id="totalOrder">Total Orders : <%=orders.length%></p>
+                <p id="totalRevenue">Total Revenue: <%= totalRevenue %> </p>
+            </div>
+        <section class="content-main">
+            <div class="content-header">
+                
+                <div>
+                    <input type="text" placeholder="Search order ID" class="form-control bg-white">
+                </div>
+            </div>
+
+           
+
+            <div class="radio-box">
+            <input type="radio" id="daily" name="period" value="daily">
+            <label for="daily">Daily</label>
+
+            <input type="radio" id="weekly" name="period" value="weekly" >
+            <label for="weekly">Weekly</label>
+
+            <input type="radio" id="yearly" name="period" value="yearly" >
+            <label for="yearly">Yearly</label>
+
+            <input type="radio" id="all" name="period" value="all" >
+            <label for="all">All</label>
+
+            
+
+           
+        </div>
+
+
+        <div class="date-picker-container">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date">
+            <button id="filter-button">Apply Filter</button>
+        </div>
+       
+        
+            
+           <div class="sales-report-table-container">
+            <table id="sales-report-table" class="sales-report-table">
+                <thead>
+                    <tr>
+                        <th>Date of Order</th>
+                        <th>Order ID</th>
+                        <th>Product Name</th>
+                        <th>Product Category</th>
+                        <th>customer name</th>
+                        <th>mobile number</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th>
+                        <th>Order Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody">
+                    <% orders.forEach(order=>{%>
+                        <% order.products.forEach(product=>{%>
+
+                                                           
+                    <tr>
+                        <td><%=new Date(order.orderDate).toLocaleString('en-US')%></td>
+                        <td><%=order._id%></td>
+                        <td><%=product.productId ? product.productId.title : 'N/A'%></td>
+                        <td><%=product.productId ? product.productId.mycategory : 'N/A'%></td>
+                        <td><%=order.customerName%></td>
+                        <td><%=order.contactNumber%></td>
+                        <td><%=product.quantity%></td>
+                        <td><%= product.productId ? product.productId.cost * product.quantity : 0 %></td>
+                        <td><%=order.paymentMethod%></td>
+                        <td>placed</td>
+                    </tr>
+                <%})%>
+            <%})%>  
+                </tbody>
+
+            </table>
+
+           </div>
+
+          
+
+
+                
+            <div class="pagination-area mt-15 mb-50">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-start">
+                        <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                        <li class="page-item"><a class="page-link" href="#">02</a></li>
+                        <li class="page-item"><a class="page-link" href="#">03</a></li>
+                        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">16</a></li>
+                        <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section> <!-- content-main end// -->
+        <footer class="main-footer font-xs">
+            <div class="row pb-30 pt-15">
+                <div class="col-sm-6">
+                   
+                   
+                    </script> ©, Evara - HTML Ecommerce Template .
+                </div>
+                <div class="col-sm-6">
+                    <div class="text-sm-end">
+                        All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    
+    <!-- Main Script -->
+   
+    
+    <script>
+
+        document.addEventListener('DOMContentLoaded',function(){
+            const radioButtons = document.querySelectorAll('input[name="period"]');
+            radioButtons.forEach(function(radio){
+                radio.addEventListener('change',function(){
+                    const selectedPeriod = document.querySelector('input[name="period"]:checked').value;
+                    fetchSalesData(selectedPeriod);
+                });
+            });
+
+            function fetchSalesData(period){
+
+                console.log(period);
+
+                fetch(`/admin/salesbyperiod/${period}`)
+                .then((response)=>response.json())
+                .then((data)=>updateSalesTable(data))
+                .catch((error)=>console.error('error fetching sales data : ',error))
+            }
+
+            function updateSalesTable(data){
+                const tableBody = document.getElementById('tableBody');
+                tableBody.innerHTML='';
+
+                data.forEach(function(order){
+                    order.products.forEach(function(product){
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${new Date(order.orderDate).toLocaleString('en-US')}</td>
+                        <td>${order._id}</td>
+                        <td>${product.productId ? product.productId.title : 'N/A'}</td>
+                        <td>${product.productId ? product.productId.mycategory : 'N/A'}</td>
+                        <td>${order.customerName}</td>
+                        <td>${order.contactNumber}</td>
+                        <td>${product.quantity}</td>
+                        <td>${product.productId && product.productId.cost ? product.productId.cost * product.quantity : 0}</td>
+                        <td>${order.paymentMethod}</td>
+                        <td>placed</td>
+                        `;
+                        tableBody.appendChild(row);
+                    })
+                })
+            }
+        })
+
+    </script>
+
+    
+    
+    <script>
+        document.getElementById('downloadButton').addEventListener('click',()=>{
+            const salesReportPageContent = document.getElementById('sales-report-table');
+            const options = {
+                margin : 10,
+                filename : 'sales_report.pdf',
+                image : {type : 'jpeg', quality : 0.98},
+                html2canvas : {scale :2},
+                jsPDF : {unit : 'mm', format : 'a4', orientation : 'portrait'},
+            };
+            html2pdf().from(salesReportPageContent).set(options).save();
+        })
+    </script>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded",()=>{
+            const filterButton = document.getElementById("filter-button");
+            filterButton.addEventListener("click",applyFilter);
+
+            function applyFilter(){
+                const startDate = document.getElementById("start-date").value;
+                const endDate = document.getElementById("end-date").value;
+
+                fetch(`/admin/filter-sales?startDate=${startDate}&endDate=${endDate}`)
+                .then(response => response.json())
+                .then(data => updateSalesTable(data))
+                .catch(error => console.error("error applying filters : " , error));
+            }
+
+            function updateSalesTable(data){
+                const tableBody = document.getElementById("tableBody");
+                tableBody.innerHTML = "";
+
+                data.forEach(order=>{
+                    order.products.forEach(product=>{
+                        const newRow = document.createElement("tr");
+
+                        newRow.innerHTML = `
+                        <td>${new Date(order.orderDate).toLocaleString('en-US')}</td>
+                        <td>${order._id}</td>
+                        <td>${product.productId ? product.productId.title : 'N/A'}</td>
+                        <td>${product.productId ? product.productId.mycategory : 'N/A'}</td>
+                        <td>${order.customerName}</td>
+                        <td>${order.contactNumber}</td>
+                        <td>${product.quantity}</td>
+                        <td>${product.productId ? product.productId.cost * product.quantity : 0}</td>
+                        <td>${order.paymentMethod}</td>
+                        <td>placed</td>
+                        `;
+                        tableBody.appendChild(newRow);
+                    })
+                })
+            }
+        })
+
+    </script>
+
+ 
+</body>
+</html>

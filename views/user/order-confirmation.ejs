@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .container{
+           
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+       
+        
+        #brandheading{
+            background-color: black;
+        }
+        #brandfont{
+            color: white;
+        }
+       
+        #getcartbtn{
+            
+            border: none;
+            border-radius: 150px;
+        }
+        #getcartbtn:hover{
+            color: black;
+            background-color: white;
+        }
+        #getwishlistbtn{
+            background-color: black;
+            border: none;
+            border-radius: 150px;
+        }
+        #getwishlistbtn:hover{
+            color: white;
+        }
+        #categorydropdown{
+            background-color: black;
+        }
+        .row.border-top{
+            margin-right: -65px;
+            margin-left: -65px;
+        }
+        .navbar.navbar-expand-lg{
+            margin-right: -350px;
+        }
+        .text-uppercase{
+            padding-left: 600px;
+            color: white;
+        }
+    
+
+    </style>
+
+</head>
+<body>
+  <div class="row align-items-center py-3 px-xl-5" id="brandheading">
+    <div class="col-lg-3 d-none d-lg-block">
+        <a href="" class="text-decoration-none">
+            <h1 class="m-0 display-5 font-weight-semi-bold" id="brandfont">tObytOne</h1>
+        </a>
+    </div>
+    <div class="col-lg-6 col-6 text-left">
+       
+    </div>
+    <div class="col-lg-3 col-6 text-right">
+        <button class="btn border" id="getcartbtn">
+            <a href="" class="btn-link">
+                <i class="fas fa-heart text-primary"></i>
+                <span class="badge">Wishlist</span>
+            </a>
+        </button>
+       
+        <button class="btn border" id="getcartbtn" onclick="location.href='/getcart'">
+            <a href="/getcart" class="btn-link">
+                <i class="fas fa-shopping-cart text-primary"></i>
+                <span class="badge">My Cart</span>
+            </a>
+        </button>
+    </div>
+</div>
+</div>
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 mt-5">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="text-center">Order Placed Successfully!</h2>
+                <p class="text-center">Thank you for your purchase.</p>
+                <hr>
+                <div class="row">
+                  <div class="col-md-6">Order Number:</div>
+                  <div class="col-md-6">12345</div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-6">Order Date:</div>
+                  <div class="col-md-6">june 14, 2023</div>
+                </div>
+                <hr>
+                <a href="/gethome" class="btn btn-primary">Go Home</a>
+                <a href="/getorders" class="btn btn-primary">View Order History</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div
+ 
+    
+</body>
+</html>

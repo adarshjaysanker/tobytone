@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  body{
+    background-color: blue;
+  }
+</style>
+<body>
+   
+    
+
+
+
+
+
+
+
+
+
+     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+ 
+  var options = {
+
+  
+    key: '<%= key_id %>',
+    amount: '<%= amount %>'*100,
+    currency: 'INR',
+    name: 'tObytOne',
+    description: 'Payment for your order',
+    image: 'https://your-store.com/logo.png',
+    order_id: '<%= order_id %>',
+    handler: function (response) {
+      
+      window.location.href = '/';       
+    },
+    prefill: {
+      name: 'Customer Name',
+      email: 'customer@example.com',
+      contact: '+91XXXXXXXXXX',
+    },
+  };
+
+  var rzp = new Razorpay(options);
+  rzp.open();
+</script>
+</body>
+</html>

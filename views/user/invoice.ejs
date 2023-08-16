@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        .invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 2px solid;
+}
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="invoice-title">
+                    <h2>Invoice</h2><h3 class="pull-right">Order # <%=orderDetails._id  %></h3>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                        <strong>Billed To:</strong><br>
+                            John Smith<br>
+                            1234 Main<br>
+                            Apt. 4B<br>
+                            Springfield, ST 54321
+                        </address>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                        <strong>Shipped To:</strong><br>
+                        <%= orderDetails.customerName  %><br>
+                        <%= orderDetails.address  %><br>
+                        <%= orderDetails.pincode  %>
+                        </address>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                            <strong>Payment Method:</strong><br>
+                           <%= orderDetails.paymentMethod  %><br>
+                            <%= orderDetails.email  %>
+                        </address>
+                    </div>
+                    <% const orderDate = new Date(orderDetails.orderDate); %>
+                    <% const formattedOrderDate = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(orderDate); %>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                            <strong>Order Date:</strong><br>
+                            <%= formattedOrderDate %><br><br>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Order summary</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td><strong>Item</strong></td>
+                                        <td class="text-center"><strong>Price</strong></td>
+                                        <td class="text-center"><strong>Quantity</strong></td>
+                                        <td class="text-right"><strong>Totals</strong></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% let subtotal =0 %>
+                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                    <% orderDetails.products.forEach(product=>{%>
+
+                                        <tr>
+                                            <td><%= product.productId.title %></td>
+                                            <td class="text-center"><%= product.productId.cost %></td>
+                                            <td class="text-center"><%= product.quantity %></td>
+                                            <td class="text-right"><%= product.productId.cost * product.quantity %></td>
+                                            <% subtotal += product.productId.cost * product.quantity %>
+                                        </tr>
+                                <%   }) %>
+                               
+                                    <tr>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                                        <td class="thick-line text-right"><%=subtotal %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-center"><strong>Shipping</strong></td>
+                                        <td class="no-line text-right">free</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-center"><strong>Total</strong></td>
+                                        <td class="no-line text-right"><%=subtotal %></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="downloadButton" class="btn btn-primary">Print</button>
+
+
+            
+    <script>
+        document.getElementById('downloadButton').addEventListener('click',()=>{
+            document.getElementById('downloadButton').style.display="none"
+            const salesReportPageContent = document.documentElement
+            const options = {
+                margin : 10,
+                filename : 'sales_report.pdf',
+                image : {type : 'jpeg', quality : 0.98},
+                html2canvas : {scale :2},
+                jsPDF : {unit : 'mm', format : 'a2', orientation : 'portrait'},
+            };
+            html2pdf().from(salesReportPageContent).set(options).save().then(()=>{
+
+                document.getElementById('downloadButton').style.display="block"
+            })
+        })
+    </script>
+
+
+    
+</body>
+</html>

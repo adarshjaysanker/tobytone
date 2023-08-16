@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login 08</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="usersignin/css/style.css">
+
+    <style>
+		.form-group .submit {
+             position: absolute;
+             top: 25px;
+             left: 0;
+             right: 0;
+             margin: 0 auto;
+           }
+		.heading-section {
+			 padding-left: 132px;
+		   }
+
+	
+        
+
+    .ftco-section {
+        padding: 50px 0;
+    }
+
+    .login-wrap {
+        background-color: black;
+        border-radius: 10px;
+		transition: transform 0.3s ease, z-index 0.3s ;
+        padding: 40px;
+		height: 500px;
+    }
+
+	.login-wrap:hover{
+		transform: scale(1.05);
+		z-index: 1;
+	}
+	
+
+    .heading-section {
+        color: white;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 40px;
+		padding-right: 125px;
+    }
+
+	body{
+		background:linear-gradient(to right, black, rgb(82, 80, 80)) ;
+	}
+
+    .icon {
+        background-color: #4caf50;
+        color: #fff;
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-bottom: 30px;
+    }
+
+    .icon .fa {
+        font-size: 40px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 25px;
+        padding: 15px;
+        color: #333;
+        background-color: #f8f8f8;
+        border: none;
+    }
+
+    .form-control::placeholder {
+        color: #999;
+    }
+
+    .btn-primary {
+        background-color: #4caf50;
+        border-radius: 25px;
+        color: #fff;
+        cursor: pointer;
+        padding: 15px;
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        color: black;
+    }
+
+	#brandheading{
+        background-color: black;
+    }
+
+	#brandfont{
+        color: white;
+    }
+
+    .error {
+        font-size: 14px;
+        color: red;
+    }
+</style>
+
+	</head>
+	<body>
+		<div class="row align-items-center py-3 px-xl-5" id="brandheading">
+			<div class="col-lg-3 d-none d-lg-block" >
+				<a href="" class="text-decoration-none">
+					<h1 class="m-0 display-5 font-weight-semi-bold" id="brandfont">tObytOne</h1>
+				</a>
+			</div>
+		</div>
+		
+	<section class="ftco-section">
+		
+		<div class="container">
+			
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-5">
+					
+					<div class="login-wrap p-4 p-md-5">
+						<h1  class="heading-section"> <b> LOGIN </b></h1>
+		      	<div class="icon d-flex align-items-center justify-content-center">
+		      		<span class="fa fa-user-o"></span>
+		      	</div>
+                <span class="blockstatus" style="color: red;"></span>
+		      	<a href="/signup" class="text-center mb-4">create an account</a>
+						<form id="loginform" class="login-form">
+		      		<div class="form-group">
+		      			<input type="text" name="email" class="form-control rounded-left" placeholder="Enter your email">
+		      		</div>
+                    <span style="color: red;" class="email error"></span>
+	            <div class="form-group d-flex">
+	              <input type="password" name="password" class="form-control rounded-left" placeholder="Password" >
+	            </div>
+                <span style="color: red;" class="password error"></span>
+	            
+	            <div class="form-group">
+	            	<button type="submit" class="btn btn-primary rounded submit p-3 px-5" id="loginbutton">LOGIN</button>
+	            </div>
+	          </form>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</section>
+    <script>
+        const form=document.getElementById('loginform')
+        const emailError=document.querySelector('.email.error')
+        const passwordError=document.querySelector('.password.error')
+         const blockedStatus=document.querySelector('.blockstatus')
+        form.addEventListener('submit',async(event)=>{
+             event.preventDefault();
+             //resset errors
+
+             emailError.textContent='';
+             passwordError.textContent='';
+            //get values
+            const email=form.email.value;
+            const password=form.password.value;
+            // const mobile=form.mobile.value
+            // const confirmpassword=form.confirmpassword.value
+            // const name=form.name.value
+            
+
+            try{
+                   const res = await fetch('/login', {
+                   method: 'post',
+                   body: JSON.stringify({ email,  password }),
+                   headers: { 'Content-Type': 'application/json' },
+                     });
+
+const data = await res.json();
+console.log("++++++++++++____")
+   console.log(data)
+
+
+if(data.errors){
+    emailError.textContent=data.errors.email;
+    passwordError.textContent=data.errors.password;
+    blockedStatus.textContent=data.errors.block;
+
+    
+}
+if(data.user){
+    location.assign('/')
+ }
+
+              
+            }catch(err){
+                console.log(err);
+
+            }
+
+
+        });
+    </script>
+
+	<script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+
+	</body>
+</html>
+

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <style>
+       .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.heading {
+  text-align: left;
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+.address-container {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.add-address-link {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #337ab7;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.address-card {
+  width: calc(33.33% - 20px);
+  margin: 10px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.address-card h3 {
+  margin-top: 0;
+}
+
+.address-card p {
+  margin-bottom: 0;
+}
+body{
+            background:linear-gradient(to right, black, rgb(98, 95, 95));
+        }
+        
+        #brandheading{
+            background-color: black;
+        }
+        #brandfont{
+            color: white;
+        }
+       
+        #getcartbtn{
+            
+            border: none;
+            border-radius: 150px;
+        }
+        #getcartbtn:hover{
+            color: black;
+            background-color: white;
+        }
+        #getwishlistbtn{
+            background-color: black;
+            border: none;
+            border-radius: 150px;
+        }
+        #getwishlistbtn:hover{
+            color: white;
+        }
+        #categorydropdown{
+            background-color: black;
+        }
+        .row.border-top{
+            margin-right: -65px;
+            margin-left: -65px;
+        }
+        .navbar.navbar-expand-lg{
+            margin-right: -350px;
+        }
+        .text-uppercase{
+            padding-left: 600px;
+            color: white;
+        }
+        container-scroller{
+          background-color: black;
+        }
+
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Stellar Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/userdetails/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/userdetails/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/userdetails/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/userdetails/vendors/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/userdetails/vendors/chartist/chartist.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="/userdetails/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="/userdetails/images/favicon.png" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="navbar-brand-wrapper d-flex align-items-center">
+          
+          <a class="navbar-brand brand-logo-mini" href="/user/userhome"><img src="/userdetails/images/logo-mini.svg" alt="logo" /></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
+          <h5 class="mb-0 font-weight-medium d-none d-lg-flex">welcome <%=user.name%></h5>
+          <ul class="navbar-nav navbar-nav-right ml-auto">
+            <form class="search-form d-none d-md-block" action="#">
+              <i class="icon-magnifier"></i>
+              <input type="search" class="form-control" placeholder="Search Here" title="Search here">
+            </form>
+            <li class="nav-item"><a href="/getcart" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
+            
+            <li class="nav-item dropdown">
+              
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
+                <a class="dropdown-item py-3">
+                  <p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
+                  <span class="badge badge-pill badge-primary float-right">View all</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="/userdetails/images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
+                    <p class="font-weight-light small-text"> The meeting is cancelled </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="/userdetails/images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
+                    <p class="font-weight-light small-text"> The meeting is cancelled </p>
+                  </div>
+                </a>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <img src="images/faces/face1.jpg" alt="image" class="img-sm profile-pic">
+                  </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
+                    <p class="font-weight-light small-text"> The meeting is cancelled </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            
+            
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="icon-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+               
+                
+              </a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link" href="/myorders">
+                <span class="menu-title">My Orders</span>
+                
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="/userhome/<%=user._id%>" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">Profile Informations</span>
+                
+              </a>
+             
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/manageadress">
+                <span class="menu-title">Manage Addresses</span>
+              
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/getcart">
+                <span class="menu-title">Cart</span>
+              
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/icons/simple-line-icons.html">
+                <span class="menu-title">Gift Cards</span>
+              
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/forms/basic_elements.html">
+                <span class="menu-title">Saved UPI</span>
+               
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/charts/chartist.html">
+                <span class="menu-title">Saved Cards</span>
+                
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/tables/basic-table.html">
+                <span class="menu-title">My Coupons</span>
+                
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/tables/basic-table.html">
+                <span class="menu-title">My Wishlist</span>
+                
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="pages/tables/basic-table.html">
+                <span class="menu-title">Log Out</span>
+                
+              </a>
+            </li>
+            
+          </ul>
+        </nav>
+        <!-- partial -->
+        <body>
+            <div class="container">
+                <h1 class="heading">Manage Addresses</h1>
+            
+                <div class="address-container">
+                  <a href="/addaddress" class="add-address-link">Add New Address</a>
+                </div>
+            
+                <div class="address-container" id="so">
+                  <% addresses.forEach(function(address) { %>
+                    <div class="address-card">
+                      <label>
+                        <input type="radio" name="selectedAddress" value="<%=address._id%>">
+                      <h3><%= address.name %></h3>
+                      <p><%= address.address %>, <%= address.pincode %>, <%= address.locality %></p>
+                      <p><%= address.city%> </p>
+                        <%= address.district %>, <%= address.state %></p>
+                        <p><%=address.email%> , <%=address.phonenumber%></p>
+                      </label>
+                      <button class="select-address-button" data-address-id="<%= address._id %>">Select Address</button>
+                      <button class="delete-address-button" data-address-id="<%= address._id %>">Delete Address</button>
+                      <!-- Add any additional details you want to display for each address -->
+                    </div>
+                  <% }) %>
+                </div>
+              </div>
+        </body>
+        </html>
+        
+
+    
+        
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+   
+
+
+
+
+    <script src="./vendors/chart.js/Chart.min.js"></script>
+    <script src="./vendors/moment/moment.min.js"></script>
+    <script src="./vendors/daterangepicker/daterangepicker.js"></script>
+    <script src="./vendors/chartist/chartist.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="./js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+
+    <script>
+
+      const selectButtons = document.querySelectorAll('.select-address-button');
+      selectButtons.forEach(button=>{
+        button.addEventListener('click',async()=>{
+          const addressId = button.getAttribute('data-address-id');
+          try{
+            const response = await fetch(`/selectaddress/${addressId}`,{
+              method : 'POST',
+              headers : {
+                'Content-Type' : 'application/json'
+              }
+            });
+            if(response.ok){
+              location.reload();
+            }else{
+              console.error('failed to select address');
+            }
+          }catch(error){
+            console.error('error selecting address : ',error);
+          }
+        });
+      });
+
+    </script>
+
+    <script>
+
+      const deleteButtons = document.querySelectorAll('.delete-address-button');
+      deleteButtons.forEach(button=>{
+        button.addEventListener('click',async()=>{
+          const addressId = button.getAttribute('data-address-id');
+          const response = await fetch(`/deleteaddress/${addressId}`,{method : 'DELETE'});
+
+         if(response.status === 204){
+          const addressCard = button.closest('.address-card');
+          if(addressCard){
+            addressCard.remove();
+          }else{
+            console.error('failed to find the address card');
+          }
+         }else{
+          alert('failed to delete')
+         }
+        })
+      })
+
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Login 08</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="/usersignin/css/style.css">
+
+	<style>
+		/* .form-group .submit {
+             position: absolute;
+             top: 10px;
+             left: 0;
+             right: 0;
+             margin: 0 auto;
+			 height: 40px;
+           } */
+		.heading-section {
+			 padding-left: 125px;
+		   }
+
+	
+        
+
+    .ftco-section {
+        padding: 20px 0;
+    }
+
+    .login-wrap {
+        background-color: black;
+        border-radius: 10px;
+		transition: transform 0.3s ease, z-index 0.3s ;
+        padding-top: 1px;
+		height: 600px;
+    }
+
+	.login-wrap:hover{
+		transform: scale(1.05);
+		z-index: 1;
+	}
+	
+
+    .heading-section {
+        color: white;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 20px;
+		margin-top: -30px;
+		padding-right: 140px;
+    }
+
+	body{
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		background:linear-gradient(to right, black, rgb(82, 80, 80)) ;
+	}
+
+    .icon {
+        background-color: #4caf50;
+        color: #fff;
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0 auto;
+        margin-bottom: 20px;
+		padding-bottom: 10px;
+		
+    }
+
+    .icon .fa {
+        font-size: 40px;
+		margin-top: 5px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 25px;
+        padding: 15px;
+        color: #333;
+        background-color: #f8f8f8;
+        border: none;
+    }
+
+    .form-control::placeholder {
+        color: #999;
+    }
+
+    .btn-primary {
+        background-color: #4caf50;
+        border-radius: 25px;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px 20px;
+        width: 100%;
+		height: 45px;
+		margin-bottom: 20px;
+    }
+
+	
+
+    .btn-primary:hover {
+        color: black;
+    }
+
+	#brandheading{
+        background-color: black;
+    }
+
+	#brandfont{
+        color: white;
+    }
+
+	#getotp{
+		padding-bottom: 20px;
+		font-size: 20px;
+		color: white;
+	}
+    .error {
+        font-size: 14px;
+        color: red;
+    }
+</style>
+
+	</head>
+	<body>
+		<div class="row align-items-center py-3 px-xl-5" id="brandheading">
+			<div class="col-lg-3 d-none d-lg-block" >
+				<a href="" class="text-decoration-none">
+					<h1 class="m-0 display-5 font-weight-semi-bold" id="brandfont">tObytOne</h1>
+				</a>
+			</div>
+		</div>
+	<section class="ftco-section">
+		<div class="container">
+			
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-5">
+					<div class="login-wrap p-4 p-md-5">
+						<h2 class="heading-section">SIGNUP</h2>
+		      	<div class="icon d-flex align-items-center justify-content-center">
+		      		<span class="fa fa-user-o"></span>
+		      	</div>
+		      	<h3 class="text-center mb-4">Have an account?</h3>
+						<form action="/users/signup" name="signup" class="login-form" id="signupform" method="post">
+		      		<div class="form-group">
+		      			<input type="text" name="name" class="form-control rounded-left" placeholder="FirstName" >
+		      		</div>
+					  <span style="color: red;" class="name error"></span>
+					 
+
+				 
+					<div class="form-group">
+						<input type="text" name="email" class="form-control rounded-left" placeholder="Email" >
+					</div>
+					<span style="color: red;" class="email error"></span>
+					<div class="form-group d-flex">
+						<input type="text" name="mobile" class="form-control rounded-left" placeholder="Enter your number" >
+					  </div>
+					  <span style="color: red;" class="phone error"></span>
+
+
+					  <div class="form-group d-flex">
+						<input type="password" name="password" class="form-control rounded-left" placeholder="Password" id="password" >
+					  </div>
+					  <span style="color: red;" class="password error"></span>
+					  <div class="form-group d-flex">
+						  <input type="password" onkeyup="check(this)" name="confirmpassword" class="form-control rounded-left" placeholder="confirm password">
+						</div>
+						<span style="color: red;" class="confirm error" id="alert"></span>
+					
+	           
+	           
+	            <div class="form-group" >
+	            	<button type="submit" class="btn btn-primary rounded submit p-3 px-5" >GET OTP</button>
+	            </div>
+	          </form>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script>
+        const form=document.getElementById('signupform')
+        const emailError=document.querySelector('.email.error')
+        const passwordError=document.querySelector('.password.error')
+        const nameError=document.querySelector('.name.error')
+        const phoneError=document.querySelector('.phone.error')
+        
+
+        form.addEventListener('submit',async(event)=>{
+             event.preventDefault();
+             //resset errors
+
+             emailError.textContent='';
+             passwordError.textContent='';
+            //get values
+            const email=form.email.value;
+            const password=form.password.value;
+            const mobile=form.mobile.value
+            const confirmpassword=form.confirmpassword.value
+            const name=form.name.value
+            if(password===confirmpassword){
+                console.log('hii')
+                 try{
+                   const res = await fetch('/signup', {
+                    method: 'post',
+                   body: JSON.stringify({ name, email, mobile, password, confirmpassword }),
+                   headers: { 'Content-Type': 'application/json' },
+                     });
+
+const data = await res.json();
+console.log("/////");
+console.log(data);
+console.log(data.errors);
+if(data.errors){
+    emailError.textContent=data.errors.email;
+    passwordError.textContent=data.errors.password;
+    nameError.textContent=data.errors.name
+    phoneError.textContent=data.errors.PhoneNumber
+}
+if(data.users){
+    location.assign('/signup-otp-verify')
+    
+}
+
+              
+            }catch(err){
+                console.log(err);
+
+            }
+            }else{
+                passwordError.textContent='Password and confirm password do not match';
+            }
+
+           
+
+
+        });
+    </script>
+    <script>
+        var password=document.getElementById('password')
+        function check(element){
+            if(element.value.length>0){
+                if(element.value!==password.value)
+                {
+                    document.getElementById('alert').innerText='Confirm password does not match'
+                }
+                else{
+                    document.getElementById('alert').innerText=''
+                }
+            }else{
+                document.getElementById('alert').innerText='Please enter confirm password'
+
+            }
+        }
+
+    </script>
+
+
+	<script src="usersignin/js/jquery.min.js"></script>
+  <script src="usersignin/js/popper.js"></script>
+  <script src="usersignin/js/bootstrap.min.js"></script>
+  <script src="usersignin/js/main.js"></script>
+
+	</body>
+</html>
+
