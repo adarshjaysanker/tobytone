@@ -4,8 +4,19 @@ var users = require("../../model/users");
 const products = require("../../model/products");
 const carts = require("../../model/cart");
 const orders = require("../../model/orders");
+const nodemailer = require("nodemailer")
 const Banner = require("../../model/banner");
+const bcrypt = require('bcrypt');
+
+const {isEmail,isAlphanumeric}=require('validator')
+
+
+
+const accountSid = "ACd749a673a5f166e015fcd2b917b8931b";
+const verifySid = "VAfb099cfe7b8f0091645a65e310304d1c";
+const client = require("twilio")(accountSid, process.env.TWILIO_AUTH_TOKEN);
 const wishlists = require("../../model/wishlist");
+const crypto = require('crypto')
 const { checkUser, requireAuth } = require("../../middlewares/user-middleware");
 const Razorpay = require("razorpay");
 const Coupon = require("../../model/coupon");
@@ -66,9 +77,19 @@ const createToken = (id) => {
   });
 };
 
+const transporter = nodemailer.createTransport({
+  service : "gmail",
+  auth : {
+    user : "adarshjayasanker5@gmail.com",
+    pass : "evertonfc123adarsh"
+  }
+});
+
 const addr = require("../../model/address");
 const Orders = require("../../model/orders");
-const address = require("../../model/address");
+
+const { Twilio } = require("twilio");
+/* const { layout } = require("pdfkit/js/page"); */
 /* const { valueOrDefault } = require("chart.js/dist/helpers/helpers.core"); */
 
 module.exports = {
@@ -82,7 +103,7 @@ module.exports = {
       service: "Gmail",
       auth: {
         user: "adarshjayasanker5@gmail.com",
-        pass: "adarshjeena",
+        pass: "evertonfc123adarsh",
       },
     });
 
@@ -99,7 +120,7 @@ module.exports = {
       } else {
         console.log("OTP send successfully", info.response);
       }
-    });
+     });
   },
   postSignUp: async (req, res) => {
     try {
@@ -386,6 +407,9 @@ module.exports = {
       if (!product) {
         return res.status(404).json({ error: "product not found in the cart" });
       }
+
+     
+      
 
       product.quantity = product.quantity + countNumber;
       await cart.save();
@@ -752,7 +776,7 @@ module.exports = {
       let discountAmount = 0;
       console.log(totalPrice);
 
-      if(coupon.isActive && coupon.expirationDate>new Date()){
+      if(coupon.expirationDate>new Date()){
         if(coupon.amountType === 'amount'){
           discountAmount = parseFloat(coupon.discount);
           updatedTotalPrice = totalPrice - discountAmount;
@@ -765,7 +789,7 @@ module.exports = {
         user.usedCoupons.push(coupon);
         await user.save();
 
-        coupon.isActive = false;
+        
         await coupon.save();
 
         console.log('before');
@@ -878,4 +902,128 @@ module.exports = {
 
   
 },
-}
+
+   sendEmail : async(req,res)=>{
+
+    function generateotp(length){
+      const charset = '0123456789';
+      let otp = '';
+      for(let i=0; i<length; i++){
+        const randomIndex = crypto.randomInt(0 , charset.length);
+        otp += charset[randomIndex];
+      }
+      return otp;
+    }
+
+
+
+    const email = req.body.email;
+    const otp = generateotp(6);
+
+    const mailOptions = {
+      from : "adarshjayasanker5@gmail.com",
+      to : email,
+      subject : "Password Reset OTP",
+      text : `Your OTP for password reset is : ${otp}`,
+    };
+
+    transporter.sendMail(mailOptions,(error,info)=>{
+      if(error){
+        console.log(error);
+        res.status(500).json({message : 'error sending email'});
+      }else{
+        console.log('email sent: '+info.response);
+        res.status(200).json({message : 'email sent successfully'});
+      }
+    });
+
+
+   } ,
+
+   forgotPassword : async(req,res)=>{
+    try{
+      res.render('user/forgotpassword',{layout : false});
+    }catch(error){
+      console.log(error);
+    }
+   },
+
+  passwordOtp : async(req,res)=>{
+    const phoneNumber = req.body.phoneNumber;
+    try{
+      const user = await users.findOne({PhoneNumber : phoneNumber});
+      if(!user){
+        return res.status(400).json({message : 'Phone number is not registered'});
+      }
+
+      const formattedPhoneNumber = phoneNumber;
+
+      req.session.otpmobilenumber = formattedPhoneNumber
+
+      
+
+     
+
+      doOtpSignUp(formattedPhoneNumber).then((response) => {
+       res.render('user/verifypasswordotp',{layout : false});
+      });
+   
+
+    
+     
+    }catch(error){
+      console.error(error);
+      res.status(500).json({message : 'internal server error'});
+    }
+  },
+
+  verifyPasswordOtp : async(req,res)=>{
+      const phonenumber = req.session.otpmobilenumber;
+      const otp = req.body.otp;
+      signUpNumberVerification(otp,phonenumber)
+      .then((user)=>{
+        res.render('user/setnewpassword',{layout:false})
+      })
+      .catch((error)=>{
+        const invalid = 'enter the correct otp';
+        console.log(error);
+        res.status(400).json({invalid});
+      })
+      },
+
+      resetPassword : async(req,res)=>{
+        const passwordValidator=function(password){
+          if(!password){
+              return false
+          }
+          const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+          return regex.test(password)
+      }
+        try{
+          const newPassword = req.body.newPassword;
+          const confirmPassword = req.body.confirmPassword;
+
+          if(newPassword!==confirmPassword){
+            return res.status(400).json({message : 'passwords do not match'});
+          }
+
+          if(!passwordValidator(newPassword)){
+            return res.status(400).json({message : 'Invalid password format'});
+          }
+
+          const salt = await bcrypt.genSalt();
+          const hashedPassword = await bcrypt.hash(newPassword,salt);
+
+          const phonenumber = req.session.otpmobilenumber;
+          const userphone = users.findOne({PhoneNumber : phonenumber});
+          await users.findOneAndUpdate(userphone,{password : hashedPassword});
+          res.render('user/login',{layout : false})
+
+        }catch(error){
+          console.error(error);
+          res.status(500).json({message : 'internal server error'});
+        }
+      }
+
+
+    }

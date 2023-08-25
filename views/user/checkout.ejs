@@ -382,7 +382,7 @@
                                             <p class="card-text">Code: <%= coupon.code %></p>
                                             <p class="card-text">Discount: <%= coupon.discount %></p>
                                             <p class="card-text">Expiration Date: <%= coupon.expirationDate.toDateString() %></p>
-                                            <% if (coupon.isActive && !coupon.used) { %>
+                                            <% if ( !coupon.used) { %>
                                                 <span class="badge badge-success">Active</span>
                                             <% } else { %>
                                                 <span class="badge badge-danger">used</span>

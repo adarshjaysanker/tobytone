@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const {body,validationResult }=require('express-validator');
-const { postSignUp, postSignupOtpNumber, postOtpPage, postLogin, getHomePage, getAllProducts , getProductDetails , getUserhome , getAddress , getAddAddress , postAddAddress , getCart , addToCart , changeProductQuantity , removeFromCart, getCheckOut , updateUserStatus , getOrders, postPlaceOrder , getOrderProducts , removeFromWishlist , addToWishlist ,orderCreation , filterProducts , sortProducts , searchProducts , applyCoupon , checkCoupon, getInvoice, updateAddress , selectAddress , deleteAddress} = require('../controllers/user/userController');
+const { postSignUp, postSignupOtpNumber, postOtpPage, postLogin, getHomePage, getAllProducts , getProductDetails , getUserhome , getAddress , getAddAddress , postAddAddress , getCart , addToCart , changeProductQuantity , removeFromCart, getCheckOut , updateUserStatus , getOrders, postPlaceOrder , getOrderProducts , removeFromWishlist , addToWishlist ,orderCreation , filterProducts , sortProducts , searchProducts , applyCoupon , checkCoupon, getInvoice, updateAddress , selectAddress , deleteAddress , sendEmail , forgotPassword , passwordOtp , verifyPasswordOtp , resetPassword} = require('../controllers/user/userController');
 const users = require('../model/users')
 const {checkUser,requireAuth}=require('../middlewares/user-middleware');
 const { verify } = require('jsonwebtoken');
@@ -96,6 +96,16 @@ router.post('/updateaddress',checkUser,updateAddress);
 router.post('/selectaddress/:addressId',checkUser,selectAddress);
 
 router.delete('/deleteaddress/:addressId',checkUser,deleteAddress);
+
+router.post('/send-email',sendEmail);
+
+router.get('/forgot-password',forgotPassword);
+
+router.post('/send-otp',checkUser,passwordOtp);
+
+router.post('/verifyotp',checkUser,verifyPasswordOtp);
+
+router.post('/reset-password',resetPassword)
 
 
 

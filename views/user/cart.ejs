@@ -331,12 +331,12 @@
 
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
+                                    <div id="minusbutton<%=product.productId._id %>" class="input-group-btn" >
                                         <button class="btn btn-sm btn-primary btn-minus" onclick="changeQuantity('<%=product.productId._id %>','-1')" oncl >
                                            <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="<%=product.quantity%>">
+                                    <input id="inputvalue<%=product.productId._id %>" type="text" class="form-control form-control-sm bg-secondary text-center"  value="<%=product.quantity%>">
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-primary btn-plus" onclick="changeQuantity('<%=product.productId._id %>','1')">
                                             <i class="fa fa-plus"></i>
@@ -421,8 +421,15 @@
     function changeQuantity(productId,count){
 
 console.log('hihihiohioyhiuyiyu');
-        console.log(productId);
-        console.log(count);
+
+       const inputValue = document.getElementById('inputvalue'+productId).value
+       console.log(inputValue);
+       console.log(productId);
+       console.log(count);
+       if(inputValue<=1&&count!=1){
+           document.getElementById('inputvalue'+productId).value=1                     
+            return
+        }
         $.ajax({
             url : '/change',
             data : {
@@ -431,12 +438,26 @@ console.log('hihihiohioyhiuyiyu');
             },
             method: 'GET',
             success : (response)=>{
-                alert(response);
+                
+                
             }
         })
         console.log(count)
     }
    </script>
+
+   <script>
+
+    function disableminusbuttton(e){
+        console.log(e,'dvbdhu');
+    }
+
+
+
+   </script>
+
+
+
 
  
 
