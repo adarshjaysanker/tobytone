@@ -104,7 +104,7 @@
             </div>
             <div class="col-lg-3 col-6 text-right">
                 <button class="btn border pink-button" id="getcartbtn">
-                    <a href="" class="btn-link">
+                    <a href="/fetchwishlist" class="btn-link">
                         <i class="fas fa-heart text-black"></i>
                         <span class="badge black-badge">Wishlist</span>
                     </a>
@@ -264,7 +264,8 @@
                     </div>
 
 
-
+                    
+                    <div id="cartMessage" class="alert alert-info" style="display: none;"></div>
                     <div class="row product-list pb-3" id="products-container">
                     <% products.forEach(function(product) { %>
                     <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
@@ -280,7 +281,11 @@
                                 <button class="btn btn-sm btn-primary mt-2" data-toggle="modal" data-target="#cropModal<%= product._id %>">
                                     Crop Image
                                 </button>
+                                <button class="btn btn-sm btn-outline-danger mt-2" data-product-id="<%=product._id%>" onclick="toggleWishlist(this)">
+                                    <i class="fas fa-heart"></i> <span class="wishlist-text">Add to wishlist</span> 
+                                </button>
                             </div>
+                           
                             <div class="modal fade" id="cropModal<%= product._id %>" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel<%= product._id %>" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -303,7 +308,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
                                 <a href="/productdetails/<%=product._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                <a href="/addtocart/<%=product._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                <a href="/addtocart/<%=product._id%>" class="btn btn-sm text-dark p-0" onclick="addToCart('<%=product._id%>')"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
                                 <a href="/purchase/<%= product._id %>" class="btn btn-sm btn-success">Buy Now</a>
@@ -658,6 +663,107 @@
 
             $('#cropModal' + productId).on('hidden.bs.modal',function(){
                 cropper.destroy();
+            })
+        }
+
+    </script>
+
+    <script>
+
+        async function toggleWishlist(button){
+            const productId = button.getAttribute("data-product-id");
+            try{
+                const response = await fetch(`/addtowishlist/${productId}`,{
+                    method : "POST",
+                    headers : {
+                        "Content-Type" : "application/json",
+                    },
+                });
+                const data = await response.json();
+                if(data.success){
+                    const isProductInWishlist = button.classList.contains("wishlist-active");
+                    if(isProductInWishlist){
+                        removeFromWishlist(productId);
+                        button.classList.remove("wishlist-active");
+                        button.querySelector(".wishlist-text").textContent = "Add to Wishlist";
+                    }else{
+                        addToWishlist(productId);
+                        button.classList.add("wishlist-active");
+                        button.querySelector(".wishlist-text").textContent = "Remove from Wishlist";
+                    }
+                }else{
+                    alert("Failed to add to wishlist");
+                }
+            }catch(error){
+                console.error("error : ",error);
+                alert("An error occured while adding to wishlist")
+            }
+        }
+
+        async function addToWishlist(productId){
+            try{
+                const response = await fetch(`/addtowishlist/${productId}`,{
+                    method : "POST",
+                    headers : {
+                        "Content-Type" : "application/json",
+                    },
+                });
+                const data = await response.json();
+                const messageContainer = document.getElementById("cartMessage");
+                if(data.success){
+                    messageContainer.textContent = "added to wishlist : "+productId;
+                    messageContainer.style.display = "block";
+                }else{
+                    messageContainer.textContent = "please login into your account to add the product :"+productId;
+                    messageContainer.style.display = "block";
+                }
+            }catch(error){
+                console.error("error : ",error);
+                alert("an error occured while adding to wishlist")
+            }
+        }
+
+        async function removeFromWishlist(productId){
+            try{
+                const response = await fetch(`/removefromwishlist/${productId}`,{
+                    method : "POST",
+                    headers : {
+                        "Content-Type" : "application/json",
+                    },
+                });
+                const data = await response.json();
+                if(data.success){
+                    alert("removed from wishlist : " +productId)
+                }else{
+                    alert("failed to remove from wishlist");
+                }
+            }catch(error){
+                console.error("error" ,error);
+                alert("an error occured while removing from wishlist");
+            }
+        }
+
+
+    </script>
+
+    <script>
+
+        function addToCart(productId){
+            event.preventDefault()
+            fetch(`/addtocart/${productId}`)
+            .then(response=>response.json())
+            .then(data=>{
+                const cartMessageElement = document.getElementById("cartMessage");
+                if(data.message){
+                    cartMessageElement.textContent = data.message;
+                    cartMessageElement.style.display = "block";
+                }else{
+                    cartMessageElement.textContent = 'product added to the cart successfully';
+                    cartMessageElement.style.display = "block";
+                }
+            })
+            .catch(error=>{
+                console.error('error : ',error);
             })
         }
 

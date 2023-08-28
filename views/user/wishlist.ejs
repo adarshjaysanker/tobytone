@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    <style>
+       
+       body{background-color: #eee}.card{border:none;position: relative}.off{font-size: 30px;margin-top: -1px !important;color: blue}.flat{font-size: 20px}.star{margin-top: 5px !important;font-size: 28px}.line{padding-right: 3rem!important;padding-left: 8rem!important}.line hr{height: 2px}
+
+       #brandheading{
+            background-color: black;
+        }
+        #brandfont{
+            color: white;
+        }
+        
+       
+       
+        #getcartbtn{
+            
+            border: none;
+            border-radius: 150px;
+        }
+        #getcartbtn:hover{
+            color: black;
+            background-color: white;
+        }
+        #getwishlistbtn{
+            background-color: black;
+            border: none;
+            border-radius: 150px;
+        }
+        #getwishlistbtn:hover{
+            color: white;
+        }
+       
+        .row.border-top{
+            margin-right: -65px;
+            margin-left: -65px;
+        }
+        .navbar.navbar-expand-lg{
+            margin-right: -350px;
+        }
+        .text-uppercase{
+            padding-left: 600px;
+            color: black;
+        }
+
+        .pink-button{
+            background-color: rgb(214, 145, 155);
+            color: black;
+            border-color: rgb(214, 145, 155);
+        }
+
+        .text-black{
+            color: black;
+        }
+
+        .black-badge{
+        
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Topbar Start -->
+        <div class="row align-items-center py-3 px-xl-5" id="brandheading">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold" id="brandfont">tObytOne</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+               
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+                <button class="btn border pink-button" id="getcartbtn">
+                    <a href="/fetchwishlist" class="btn-link">
+                        <i class="fas fa-heart text-black"></i>
+                        <span class="badge black-badge">Wishlist</span>
+                    </a>
+                </button>
+               
+                <button class="btn border pink-button" id="getcartbtn" onclick="location.href='/getcart'">
+                    <a href="/getcart" class="btn-link">
+                        <i class="fas fa-shopping-cart  text-black"></i>
+                        <span class="badge black-badge">My Cart</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+           
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse" ; margin-bottom: 0;">
+                        <div class="navbar-nav mr-auto py-0" >
+                            <a href="/" class="nav-item nav-link active" style="color: black;"> <b>Home</b></a>
+                            <a href="/allproducts" class="nav-item nav-link" style="color: black;"> <b>All Products</b></a>
+                            
+                           
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+                            <% if (user) { %>
+                                    <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
+                                        <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                          <span class="font-weight-normal"><%=user.name%></span></a>
+                                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                                          <a href="/userhome/<%=user.id%>" class=""><i class="dropdown-item-icon icon-user text-primary"></i> My Profile
+                                        </a>
+                                          <a href="/getorders" class="dropdown-item"><i class="dropdown-item-icon icon-speech text-primary"></i>Orders</a>
+                                          <a class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i>Wishlist</a>
+                                          <a href="/getcart" class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i>Cart</a>
+                                          <a href="/manageaddress" class="dropdown-item"><i class="dropdown-item-icon icon-energy text-primary"></i>Address</a>
+                                          <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i>Coupons</a>
+                                          <a class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Gift Cards</a>
+                                          <a href="/logout" class="dropdown-item"><i class="dropdown-item-icon icon-power text-primary"></i>Sign Out</a>
+                                        </div>
+                                      </li>
+                            <% } else { %>
+
+                                <form action="/login" method="get">
+                                    <button type="submit">LOGIN</button>
+                                </form>
+                            
+                            <% } %>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+       
+    <!-- Navbar End -->
+
+
+    <!-- Page Header Start -->
+   
+       
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">WISHLIST</h1>
+            <div id="cartMessage" class="alert alert-info" style="display: none;"></div>
+           
+
+
+    <!-- Page Header End -->
+
+
+    <!-- Shop Start -->
+    
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+           
+            <!-- Shop Sidebar End -->
+
+
+           
+            
+            <div class="col-lg-9 col-md-12">
+                <div class="row pb-3">
+                    
+
+
+
+                   
+                    <div class="row product-list pb-3" id="products-container">
+                        
+                   <%if(success){%>     
+                    <% products.forEach(function(product) { %>
+                    <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                        <div class="card product-item border-0 mb-4">
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <img class="img-fluid w-100" src="uploads/<%=product.productId.image[0]%>" alt="" ">
+                            </div>
+                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <h6 class="text-truncate mb-3"><%=product.productId.title%></h6>
+                                <div class="d-flex justify-content-center">
+                                    <h6><%=product.productId.cost%></h6><h6 class="text-muted ml-2"></h6>
+                                </div>
+                                
+                                <button class="btn btn-sm btn-outline-danger mt-2" data-product-id="<%=product.productId._id%>" onclick="removeFromWishlist('<%=product.productId._id%>')">
+                                    <i class="fas fa-heart"></i> <span class="wishlist-text">Remove</span> 
+                                </button>
+                            </div>
+                          
+                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                <a href="/productdetails/<%=product.productId._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                <a href="/addtocart/<%=product._id%>" class="btn btn-sm text-dark p-0" onclick="addToCart('<%=product.productId._id%>')"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <% }); %>
+                    <%}else{%>
+                        <p>no products in the wishlist</p>
+                    <%}%>
+                
+                </div>
+            
+                    
+                   
+                </div>
+            </div>
+            <!-- Shop Product End -->
+        </div>
+    </div>
+    <!-- Shop End -->
+
+
+    <!-- Footer Start -->
+    
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+   
+    
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    
+
+    <script>
+         
+         async function removeFromWishlist(productId){
+            try{
+                const response = await fetch(`/removefromwishlist/${productId}`,{
+                    method : "POST",
+                    headers : {
+                        "Content-Type" : "application/json",
+                    },
+                });
+                const data = await response.json();
+                if(data.success){
+                    alert("removed from wishlist : " + productId);
+                    const cardElement = document.querySelector(`[data-product-id="${productId}"]`).closest('.card');
+                    if(cardElement){
+                        cardElement.remove();
+                    }
+                }else{
+                    alert('failed to remove from wishlist');
+                }
+            }catch(error){
+                console.error("error",error);
+                alert("an error occured while removing from wishlist");
+            }  
+         }
+
+    </script>
+
+    <script>
+
+function addToCart(productId){
+            event.preventDefault()
+            fetch(`/addtocart/${productId}`)
+            .then(response=>response.json())
+            .then(data=>{
+                const cartMessageElement = document.getElementById("cartMessage");
+                if(data.message){
+                    cartMessageElement.textContent = data.message;
+                    cartMessageElement.style.display = "block";
+                }else{
+                    cartMessageElement.textContent = 'product added to the cart successfully';
+                    cartMessageElement.style.display = "block";
+                }
+            })
+            .catch(error=>{
+                console.error('error : ',error);
+            })
+        }
+
+
+    </script>
+
+
+    
+
+   
+
+
+</body>
+
+</html>

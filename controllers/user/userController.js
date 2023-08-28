@@ -7,6 +7,7 @@ const orders = require("../../model/orders");
 const nodemailer = require("nodemailer")
 const Banner = require("../../model/banner");
 const bcrypt = require('bcrypt');
+const Wishlist = require("../../model/wishlist");
 
 const {isEmail,isAlphanumeric}=require('validator')
 
@@ -89,6 +90,7 @@ const addr = require("../../model/address");
 const Orders = require("../../model/orders");
 
 const { Twilio } = require("twilio");
+const { json } = require("body-parser");
 /* const { layout } = require("pdfkit/js/page"); */
 /* const { valueOrDefault } = require("chart.js/dist/helpers/helpers.core"); */
 
@@ -217,17 +219,13 @@ module.exports = {
   },
 
   getAllProducts: async (req, res) => {
-    const isLoggedIn = req.session.user ? true : false;
+    
     const products = await displayHomeProduct();
-    const userId = res.locals.user._id.toString();
-
-    const wishlist = await wishlists.findOne({ user: userId });
+   
 
     res.render("user/allproducts", {
       products: products,
       layout: false,
-      isLoggedIn,
-      wishlist: wishlist,
     });
   },
 
@@ -312,12 +310,16 @@ module.exports = {
 
   getCart: async (req, res) => {
     try {
-      const userId = res.locals.user._id.toString();
+      const userId =req.session.user?res.locals.user._id.toString():null;
+      
+      
       console.log("}}}}}}}}}}}}}}}}}}}}}");
 
+      if(userId){
       const cart = await carts
         .findOne({ user: userId })
         .populate("products.productId", "title cost image");
+
       const coupons = await Coupon.find();
       if (cart) {
         const totalPrice = cart.products.reduce((total, item) => {
@@ -326,7 +328,7 @@ module.exports = {
           }
           return total;
         }, 0);
-
+      
        
         res.render("user/cart", {
           products: cart.products,
@@ -338,6 +340,9 @@ module.exports = {
         const products = [];
         res.render("user/cart", { products, coupons, layout: false });
       }
+    }else{
+      res.status(500).json({message : 'please login your account to get into your cart'})
+    }
 
       console.log("}}}}}}}}}}}}}");
       console.log(cart.products);
@@ -349,8 +354,9 @@ module.exports = {
   addToCart: async (req, res) => {
     try {
       const productId = req.params.id;
-      const userId = res.locals.user._id.toString();
+      const userId = req.session.user? res.locals.user._id.toString() : null;
 
+    if(userId){
       var cart = await carts.findOne({ user: userId });
 
       if (!cart) {
@@ -378,8 +384,13 @@ module.exports = {
         }
       }
       await cart.save().then((response) => {
-        res.redirect("/getcart");
+        
       });
+      res.json({success : true, message : 'product added to the cart successfully'})
+        
+    }else{
+      res.json({success : false, message : 'please login into your account to add any product to the cart'})
+    }
     } catch (error) {
       console.error(error);
     }
@@ -1023,7 +1034,57 @@ module.exports = {
           console.error(error);
           res.status(500).json({message : 'internal server error'});
         }
-      }
+      },
 
+      addTowishlist : async(req,res)=>{
+        const productId = req.params.productId;
+        const userId = req.session.user?res.locals.user._id.toString() : null;
+        
+        try{
+          if(userId){
+          const existingWishlistItem = await Wishlist.findOne({userId,productId});
+          if(!existingWishlistItem){
+            const wishlistItem = new Wishlist({
+              userId : userId,
+              productId : productId,
+            });
+            await wishlistItem.save();
+          }
+          res.json({success : true});
+        }else{
+          res.json({success : false});
+        }
+        
+        }catch(error){
+          console.error("error",error);
+          res.status(500).json({success : false,error : "failed to add to wishlist"});
+        }
+      },
+
+      removeFromWishlist : async(req,res)=>{
+        const productId = req.params.productId;
+        const userId = res.locals.user._id.toString();
+        try{
+          const existingWishlistItem = await Wishlist.findOne({userId,productId});
+          if(existingWishlistItem){
+            await Wishlist.findOneAndDelete({userId,productId});
+          }
+          res.json({success : true});
+        }catch(error){
+          console.error("error : ",error);
+          res.status(500).json({success : false, error : "failed to remove from wishlist"});
+        }
+      },
+
+      fetchWishlist : async(req,res)=>{
+        const userId = res.locals.user._id.toString();
+        try{
+          const wishlistProducts = await Wishlist.find({userId}).populate("productId");
+          res.render('user/wishlist',{success : true , products : wishlistProducts , layout : false});
+        }catch(error){
+          console.error("error : ",error);
+          res.status(500).json({success : false, error : 'failed to fetcch wishlist'});
+        }
+      }
 
     }

@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const {body,validationResult }=require('express-validator');
-const { postSignUp, postSignupOtpNumber, postOtpPage, postLogin, getHomePage, getAllProducts , getProductDetails , getUserhome , getAddress , getAddAddress , postAddAddress , getCart , addToCart , changeProductQuantity , removeFromCart, getCheckOut , updateUserStatus , getOrders, postPlaceOrder , getOrderProducts , removeFromWishlist , addToWishlist ,orderCreation , filterProducts , sortProducts , searchProducts , applyCoupon , checkCoupon, getInvoice, updateAddress , selectAddress , deleteAddress , sendEmail , forgotPassword , passwordOtp , verifyPasswordOtp , resetPassword} = require('../controllers/user/userController');
+const { postSignUp, postSignupOtpNumber, postOtpPage, postLogin, getHomePage, getAllProducts , getProductDetails , getUserhome , getAddress , getAddAddress , postAddAddress , getCart , addToCart , changeProductQuantity , removeFromCart, getCheckOut , updateUserStatus , getOrders, postPlaceOrder , getOrderProducts, addTowishlist ,orderCreation , filterProducts , sortProducts , searchProducts , applyCoupon , checkCoupon, getInvoice, updateAddress , selectAddress , deleteAddress , sendEmail , forgotPassword , passwordOtp , verifyPasswordOtp , resetPassword , removeFromWishlist , fetchWishlist} = require('../controllers/user/userController');
 const users = require('../model/users')
 const {checkUser,requireAuth}=require('../middlewares/user-middleware');
 const { verify } = require('jsonwebtoken');
@@ -105,7 +105,15 @@ router.post('/send-otp',checkUser,passwordOtp);
 
 router.post('/verifyotp',checkUser,verifyPasswordOtp);
 
-router.post('/reset-password',resetPassword)
+router.post('/reset-password',resetPassword);
+
+router.post('/check-phone-number',passwordOtp);
+
+router.post("/addtowishlist/:productId",checkUser,addTowishlist);
+
+router.post("/removefromwishlist/:productId",checkUser,removeFromWishlist);
+
+router.get("/fetchwishlist",checkUser,fetchWishlist);
 
 
 
